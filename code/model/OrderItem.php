@@ -116,6 +116,19 @@ class OrderItem extends OrderAttribute {
 		return $unique;
 	}
 	
+	/**
+	 * Generate a string unique to this order item,
+	 * regardless of fields like Quantity, or CalculatedTotal
+	 */
+	function hash(){
+		if($this->Buyable()){
+			$unique = $this->uniquedata();
+			ksort($unique);
+			return http_build_query($unique); //not really a hash, but it is unique
+		}
+		user_error('Buyable not found');
+	}
+	
 	function Buyable(){
 		$buyable = $this->stat('buyable_relationship');
 		return $this->$buyable();

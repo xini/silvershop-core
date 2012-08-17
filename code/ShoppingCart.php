@@ -191,25 +191,24 @@ class ShoppingCart{
 		if(!$buyable || !$order){
 			return false;
 		}
-		$filter = array(
-			'OrderID' => $order->ID
-		);
-		$itemclass = $buyable->stat('order_item');
-		$singletonorderitem = singleton($itemclass);
-		$relationship = $singletonorderitem->stat('buyable_relationship');
-		$filter[$singletonorderitem->stat('buyable_relationship')."ID"] = $buyable->ID;
-		$required = $singletonorderitem->stat('required_fields');
-		//TODO: $required = $itemclass::$required_fields; //php 5.3 isn't standard until SS3
-		$required = array_merge(array('Order',$singletonorderitem->stat('buyable_relationship')),$required);
-		//TODO: allow passing exact id
-		$query = new MatchObjectFilter($itemclass,array_merge($customfilter,$filter),$required);
-		$filter = $query->getFilter();
-		$item = DataObject::get_one($itemclass, $filter);
-		if(!$item){
-			$this->error(_t("ShoppingCart.ITEMNOTFOUND","Item not found."));
-			return false;
-		}
-		return $item;
+		$filter = array('OrderID' => $order->ID);
+		//create a dumy item to call hash funciton on
+		$singletonorderitem = singleton($buyable->stat('order_item')); 
+		$singletonorderitem->update($customfilter);
+		$singletonorderitem->{$singletonorderitem->stat('buyable_relationship')."ID"} = $buyable->ID;
+		$hash = $singletonorderitem->hash();
+		if($hash !== false){
+			$items = $order->Items();
+			if($items->exists()){
+				foreach($items as $item){ //find matching order item in cart, based on hash
+					if($item->hash() === $hash){
+						return $item;
+					}
+				}
+			}
+		}		
+		$this->error(_t("ShoppingCart.ITEMNOTFOUND","Item not found."));
+		return false;
 	}
 	
 	/**
