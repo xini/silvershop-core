@@ -46,6 +46,12 @@ class ProductCatalogAdmin_CollectionController extends ModelAdmin_CollectionCont
 		return $form;
 	}
 	
+	function getResultsTable($searchCriteria){
+		$table = parent::getResultsTable($searchCriteria);
+		$table->setPermissions(array("view","edit"));
+		return $table;
+	}
+	
 }
 
 /**
@@ -100,10 +106,13 @@ class ProductCatalogAdmin_RecordController extends ModelAdmin_RecordController{
 	function doGoto($data, $form, $request) {
 		Director::redirect($this->currentRecord->Link());
 	}
-
-	function doDelete() {
-		user_error("this function has not been implemented yet", E_USER_NOTICE);
-		//might be prudent not to allow deletions as products should not be deleted, but rather be made "not for sale"
+	
+	public function doDelete($data, $form, $request) {
+		if($this->currentRecord->canDelete(Member::currentUser())) {
+			$this->currentRecord->doUnpublish();
+			$this->currentRecord->delete();
+		}
+		return "product deleted";
 	}
 
 }
