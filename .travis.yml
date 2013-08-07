@@ -14,22 +14,13 @@ before_script:
 
 # get core code
 - cd ~/builds
-- git clone git://github.com/silverstripe/silverstripe-installer.git ss
-- git clone git://github.com/silverstripe/sapphire.git ss/sapphire
-- cd ss/sapphire
-- git checkout 2.4.5
-- cd ~/builds
-- git clone git://github.com/silverstripe/silverstripe-cms.git ss/cms
-- cd ss/cms
-- git checkout 2.4.5
-- cd ~/builds
+- git clone -b 2.4 git://github.com/silverstripe/silverstripe-installer.git ss
+- git clone -b 2.4.5 git://github.com/silverstripe/sapphire.git ss/sapphire
+- git clone -b 2.4.5 git://github.com/silverstripe/silverstripe-cms.git ss/cms
 - git clone git://github.com/burnbright/silverstripe-payment.git ss/payment
 - git clone git://github.com/burnbright/silverstripe-bootstrap.git ss/themes/bootstrap
 - git clone git://github.com/burnbright/silverstripe-bootstrap-shop.git ss/themes/bootstrap_shop
-- git clone https://github.com/silverstripe-labs/silverstripe-sqlite3.git ss/sqlite
-- cd ss/sqlite
-- git checkout 1.2.0
-- cd ~/builds
+- git clone -b 1.2.0 https://github.com/silverstripe-labs/silverstripe-sqlite3.git ss/sqlite
 
 - mv ~/build/burnbright/silverstripe-shop ss/shop
 
