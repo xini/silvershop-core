@@ -29,6 +29,12 @@ class OrderProcessor{
 	* @deprecated - use translation instead via Order.EMAILSUBJECT
 	*/
 	protected static $receipt_subject = "Shop Sale Information #%s";
+
+	/**
+	 * Send a copy to site admin account
+	 * @var boolean
+	 */
+	protected static $bcc_sender = true;
 	
 	/**
 	 * Static way to create the order processor.
@@ -52,6 +58,13 @@ class OrderProcessor{
 		self::$receipt_subject = $subject;
 	}
 	
+	/**
+	 * Bcc all emails to sender (the from address)
+	 */
+	public static function set_bcc_sender($dobcc = true){
+		self::$bcc_sender = $dobcc;
+	}
+
 	/**
 	 * Assign the order to a local variable
 	 * @param Order $order
@@ -216,8 +229,8 @@ class OrderProcessor{
 	* @param $emailClass - the class name of the email you wish to send
 	* @param $copyToAdmin - true by default, whether it should send a copy to the admin
 	*/
-	function sendEmail($emailClass, $copyToAdmin = true){
-		$from = self::$email_from ? self::$email_from : Email::getAdminEmail();
+	function sendEmail($emailClass, $bcc = null){
+		$from = $this->getFromEmail();
 		$to = $this->order->getLatestEmail();
 		$subject = sprintf(_t("Order.EMAILSUBJECT",self::$receipt_subject) ,$this->order->Reference);
 		$purchaseCompleteMessage = DataObject::get_one('CheckoutPage')->PurchaseComplete;
@@ -225,8 +238,8 @@ class OrderProcessor{
 		$email->setFrom($from);
 		$email->setTo($to);
 		$email->setSubject($subject);
-		if($copyToAdmin){
-			$email->setBcc(Email::getAdminEmail());
+		if(self::$bcc_sender){
+			$email->setBcc($from);
 		}
 		$email->populateTemplate(array(
 			'PurchaseCompleteMessage' => $purchaseCompleteMessage,
@@ -240,7 +253,7 @@ class OrderProcessor{
 	* Precondition: The order payment has been successful
 	*/
 	function sendReceipt() {
-		$this->sendEmail('Order_ReceiptEmail');
+		$this->sendEmail('Order_ReceiptEmail', self::$bcc_sender ? $this->getFromEmail() : null);
 		$this->order->ReceiptSent = SS_Datetime::now()->Rfc2822();
 		$this->order->write();
 	}
@@ -263,11 +276,6 @@ class OrderProcessor{
 			}
 		}
 		$member = $this->order->Member();
-		if(self::$receipt_email) {
-			$adminEmail = self::$receipt_email;
-		}else {
-			$adminEmail = Email::getAdminEmail();
-		}
 		$e = new Order_statusEmail();
 		$e->populateTemplate($this);
 		$e->populateTemplate(array(
@@ -275,10 +283,21 @@ class OrderProcessor{
 			"Member" => $member,
 			"Note" => $note
 		));
-		$e->setFrom($adminEmail);
+		$e->setFrom($this->getFromEmail());
 		$e->setSubject($title);
 		$e->setTo($member->Email);
 		$e->send();
+	}
+
+	/**
+	 * Get the email address to send from
+	 * @return string from email address
+	 */
+	function getFromEmail(){
+		if(self::$email_from) {
+			return self::$email_from;
+		}
+		return Email::getAdminEmail();
 	}
 	
 	function getError(){
