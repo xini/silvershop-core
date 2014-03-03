@@ -113,6 +113,28 @@ class OrderTest extends SapphireTest {
 	}
 
 	/**
+	 * Ensure that adjusting products availability will
+	 * affect whether they are part of the cart.
+	 */
+	public function testCartMutability() {
+		$cart = $this->objFromFixture("Order", "cart");
+		$this->assertEquals(8, $cart->GrandTotal());
+
+		$this->socks->deleteFromStage('Live');
+		$this->assertFalse($this->socks->isPublished());
+		$cart->calculate();
+		$this->assertEquals(0, $cart->GrandTotal());
+
+		$this->socks->publish('Stage', 'Live');
+		$cart->calculate();
+		$this->assertEquals(8, $cart->GrandTotal());
+
+		$this->socks->AllowPurchase = 0;
+		$this->socks->write();
+		$this->assertEquals(0, $cart->GrandTotal());
+	}
+
+	/**
 	 * Helper for creating an order
 	 * Total should be $408.00
 	 */
