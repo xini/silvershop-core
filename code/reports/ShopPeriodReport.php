@@ -74,8 +74,9 @@ class ShopPeriodReport extends SS_Report{
 		isset($params['Grouping']) || $params['Grouping'] = "Month";
 		$list = new SQLQueryList($this->query($params));
 		$grouping = $params['Grouping'];
-		$list->setOutputClosure(function($row) use ($grouping){
-			$row['FilterPeriod'] = $this->formatDateForGrouping($row['FilterPeriod'], $grouping);
+		$self = $this;
+		$list->setOutputClosure(function($row) use ($grouping, $self){
+			$row['FilterPeriod'] = $self->formatDateForGrouping($row['FilterPeriod'], $grouping);
 
 			return new $this->dataClass($row);
 		});
