@@ -12,8 +12,6 @@ matrix:
     - php: 5.5
       env: DB=PGSQL CORE_RELEASE=3.1
     - php: 5.6
-      env: DB=SQLITE CORE_RELEASE=3.1 BEHAT_TEST=1
-    - php: 5.6
       env: DB=SQLITE CORE_RELEASE=3.1 COVERAGE=1
     - php: 5.6
       env: DB=SQLITE CORE_RELEASE=3.1 COVERAGE=2
@@ -34,15 +32,9 @@ before_script:
   - php ~/travis-support/travis_setup_selenium.php --if-env BEHAT_TEST
   - php ~/travis-support/travis_setup_php54_webserver.php --if-env BEHAT_TEST
 
-script:
-  - if [ -z "$COVERAGE" ] && [ -z "$BEHAT_TEST" ]; then vendor/bin/phpunit -c ~/builds/ss/shop/phpunit.xml.dist; fi
-  - if [ -n "$COVERAGE" ] && [ -z "$BEHAT_TEST" ]; then vendor/bin/phpunit -c ~/builds/ss/shop/phpunit.xml.dist --testsuite Split$COVERAGE --coverage-clover ~/builds/ss/shop/coverage.xml; fi
-  - if [ -z "$COVERAGE" ] && [ -n "$BEHAT_TEST" ]; then vendor/bin/behat @shop; fi
+script: ./shop/tests/travis/run_build.sh
 
-after_script:
-  - if [ -n "$COVERAGE" ]; then cd shop; fi
-  - if [ -n "$COVERAGE" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi
-  - if [ -n "$COVERAGE" ]; then php ocular.phar code-coverage:upload -v --format=php-clover ~/builds/ss/shop/coverage.xml; fi
+after_success: ./shop/tests/travis/upload_coverage.sh
 
 notifications:
   webhooks:

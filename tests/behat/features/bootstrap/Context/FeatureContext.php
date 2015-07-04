@@ -1,6 +1,6 @@
 <?php
 
-namespace Shop\Test\Behaviour;
+namespace SilverStripe\Shop\Test\Behaviour;
 
 use SilverStripe\BehatExtension\Context\SilverStripeContext,
     SilverStripe\BehatExtension\Context\BasicContext,
@@ -21,7 +21,7 @@ require_once 'PHPUnit/Framework/Assert/Functions.php';
  * Uses subcontexts to extend functionality.
  */
 class FeatureContext extends SilverStripeContext {
-    
+
     /**
      * @var FixtureFactory
      */
@@ -67,9 +67,9 @@ class FeatureContext extends SilverStripeContext {
 
     public function setMinkParameters(array $parameters) {
         parent::setMinkParameters($parameters);
-        
+
         if(isset($parameters['files_path'])) {
-            $this->getSubcontext('FixtureContext')->setFilesPath($parameters['files_path']);    
+            $this->getSubcontext('FixtureContext')->setFilesPath($parameters['files_path']);
         }
     }
 

@@ -4,5 +4,6 @@ Feature: Behat Works
   So I can move on to real features
 
   Scenario: Home page displays
-    Given I am on the homepage
+    Given a "page" "homepage" with "URL"="home" and "Content"="Welcome to SilverStripe!"
+    Given I am on "homepage"
     Then I should see "Welcome to SilverStripe!"
