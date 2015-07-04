@@ -35,9 +35,9 @@ before_script:
   - php ~/travis-support/travis_setup_php54_webserver.php --if-env BEHAT_TEST
 
 script:
-  - if [ -z "$COVERAGE" && -Z "$BEHAT_TEST" ]; then vendor/bin/phpunit -c ~/builds/ss/shop/phpunit.xml.dist; fi
-  - if [ -n "$COVERAGE" && -z "$BEHAT_TEST" ]; then vendor/bin/phpunit -c ~/builds/ss/shop/phpunit.xml.dist --testsuite Split$COVERAGE --coverage-clover ~/builds/ss/shop/coverage.xml; fi
-  - if [ -z "$COVERAGE" && -n "$BEHAT_TEST" ]; then vendor/bin/behat @shop; fi
+  - if [ -z "$COVERAGE" ] && [ -z "$BEHAT_TEST" ]; then vendor/bin/phpunit -c ~/builds/ss/shop/phpunit.xml.dist; fi
+  - if [ -n "$COVERAGE" ] && [ -z "$BEHAT_TEST" ]; then vendor/bin/phpunit -c ~/builds/ss/shop/phpunit.xml.dist --testsuite Split$COVERAGE --coverage-clover ~/builds/ss/shop/coverage.xml; fi
+  - if [ -z "$COVERAGE" ] && [ -n "$BEHAT_TEST" ]; then vendor/bin/behat @shop; fi
 
 after_script:
   - if [ -n "$COVERAGE" ]; then cd shop; fi
