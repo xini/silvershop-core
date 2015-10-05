@@ -5,5 +5,7 @@ Feature: Behat Works
 
   Scenario: Home page displays
     Given a "page" "homepage" with "URL"="home" and "Content"="Welcome to SilverStripe!"
-    Given I am on "homepage"
+    And the "page" "homepage" is published
+    And I am on "homepage"
+    And I put a breakpoint
     Then I should see "Welcome to SilverStripe!"
