@@ -1,3 +1,4 @@
+@products @wip
 Feature: Browse By Category
   In order to see products I might want to buy
   As a potential customer

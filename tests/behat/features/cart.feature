@@ -1,84 +1,16 @@
-@cart
+@cart @wip
 Feature: Cart
   In order to select products for purchase
   As a visitor
   I want to be able to add and remove products to and from my cart
 
   Background:
-    Given there are the following ProductCategory records
-      apparel:
-        Title: Apparel
-        URLSegment: apparel
-      stationery:
-        Title: Stationery
-        URLSegment: stationery
-    And there are the following ProductAttributeType records
-      shirtsize:
-        Name: Shirt Size
-        Label: Size
-      shirtcolor:
-        Name: Shirt Colour
-        Label: Colour
-    And there are the following Product records
-      pens:
-        Title: Ball Point Pens (7 pack)
-        InternalItemID: abc123
-        Price: 12
-        Weight: 0.1
-        Width: 5
-        Height: 10
-        Depth: 3
-        Parent: =>ProductCategory.stationery
-      tshirt:
-        Title: T-Shirt
-        InternalItemID: abc128
-        Price: 25
-        Parent: =>ProductCategory.apparel
-        URLSegment: t-shirt
-        AllowPurchase: 1
-        Weight: 0.3
-        Height: 28
-        Width: 18.5
-        Depth: 2
-        Stock: 1000
-        Content: <p>This popular t-shirt could make you popular.</p>
-        VariationAttributeTypes: =>ProductAttributeType.shirtsize,=>ProductAttributeType.shirtcolor
-    And there are the following ProductAttributeValue records
-      shirtsize_large:
-        Value: Large
-        Type: =>ProductAttributeType.shirtsize
-      shirtsize_medium:
-        Value: Medium
-        Type: =>ProductAttributeType.shirtsize
-      shirtsize_small:
-        Value: Small
-        Type: =>ProductAttributeType.shirtsize
-      shirtcolor_red:
-        Value: Red
-        Type: =>ProductAttributeType.shirtcolor
-      shirtcolor_blue:
-        Value: Blue
-        Type: =>ProductAttributeType.shirtcolor
-    And there are the following ProductVariation records
-      tshirt_1:
-        Product: =>Product.tshirt
-        Price: 25
-        InternalItemID: abc128-lr
-        AttributeValues: =>ProductAttributeValue.shirtsize_large,=>ProductAttributeValue.shirtcolor_red
-      tshirt_2:
-        Product: =>Product.tshirt
-        Price: 25
-        InternalItemID: abc128-mb
-        AttributeValues: =>ProductAttributeValue.shirtsize_medium,=>ProductAttributeValue.shirtcolor_blue
-    Given a "page" "homepage" with "URL"="home"
-    And a "CartPage" "cart" with "URL"="cart"
-    And all pages are published
+    Given a shop with demo records
 
   Scenario: Seeing empty cart
-    Given I am on "homepage"
-    When I follow "View cart"
-    Then I should be on the cart summary page
-    And I should see "Your cart is empty"
+    Given I am on the homepage
+    When navigate to "/cart"
+    Then I should see "Your cart is empty"
 
   Scenario: Adding simple product to cart via list
     Given I am on the store homepage
