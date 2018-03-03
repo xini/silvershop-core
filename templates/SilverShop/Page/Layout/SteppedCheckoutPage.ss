@@ -1,19 +1,15 @@
-<% require css("silvershop/core: client/dist/css/checkout.css") %>
-
 <h1>$Title</h1>
 
 <% if $PaymentErrorMessage %>
-    <p class="message error">
-        <%t SilverShop\Page\CheckoutPage.PaymentErrorMessage 'Received error from payment gateway:' %>
-        $PaymentErrorMessage
-    </p>
+    <div class="alert alert-error">
+        <p><%t SilverShop\Page\CheckoutPage.PaymentErrorMessage 'Received error from payment gateway:' %>
+        $PaymentErrorMessage</p>
+    </div>
 <% end_if %>
 
 <% if $Cart %>
-
     <div class="row">
         <div class="span10">
-
             <div id="Checkout" class="accordion">
 
                 <div class="accordion-group">

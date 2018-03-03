@@ -1,5 +1,5 @@
 <% if $Items %>
-    <table class="cart" summary="<%t SilverShop\Cart\ShoppingCart.TableSummary "Current contents of your cart." %>">
+    <table class="shop-cart" summary="<%t SilverShop\Cart\ShoppingCart.TableSummary "Current contents of your cart." %>">
         <colgroup>
             <col class="image"/>
             <col class="product title"/>
@@ -25,7 +25,7 @@
                 <tr id="$TableID" class="$Classes $EvenOdd $FirstLast">
                     <td>
                         <% if $Image %>
-                            <div class="image">
+                            <div class="shop-cart__image">
                                 <a href="$Link" title="<%t SilverShop\Generic.ReadMoreTitle "Click here to read more on &quot;{Title}&quot;" Title=$TableTitle %>">
                                     $Image.setWidth(45)
                                 </a>
@@ -40,7 +40,7 @@
                             $TableTitle
                         <% end_if %>
                         </h3>
-                        <% if $SubTitle %><p class="subtitle">$SubTitle</p><% end_if %>
+                        <% if $SubTitle %><p class="shop-cart__subtitle">$SubTitle</p><% end_if %>
                         <% if $Product.Variations && $Up.Editable %>
                             <%t SilverShop\Generic.Change "Change" %>: $VariationField
                         <% end_if %>
@@ -57,14 +57,13 @@
                                     <img src="$resourceURL('silvershop/core:client/dist/images/remove.gif')" alt="x"/>
                                 </a>
                             <% end_if %>
-
                         </td>
                     <% end_if %>
                 </tr>
             <% end_if %><% end_loop %>
         </tbody>
         <tfoot>
-            <tr class="subtotal">
+            <tr class="shop-cart__subtotal">
                 <th colspan="4" scope="row"><%t SilverShop\Model\Order.SubTotal "Sub-total" %></th>
                 <td id="$TableSubTotalID">$SubTotal.Nice</td>
                 <% if $Editable %><td>&nbsp;</td><% end_if %>
@@ -86,7 +85,7 @@
                                     <td>
                                         <% if $CanRemove %>
                                             <strong>
-                                                <a class="ajaxQuantityLink" href="$removeLink" title="<%t SilverShop\Cart\ShoppingCart.RemoveTitle "Remove &quot;{Title}&quot; from your cart." Title=$TableTitle %>">
+                                                <a class="shop-ajaxquantityLink" href="$removeLink" title="<%t SilverShop\Cart\ShoppingCart.RemoveTitle "Remove &quot;{Title}&quot; from your cart." Title=$TableTitle %>">
                                                     <img src="$resourceURL('silvershop/core:client/dist/images/remove.gif')" alt="x"/>
                                                 </a>
                                             </strong>
@@ -102,16 +101,20 @@
                         <% end_if %>
                     <% end_loop %>
                 <% end_if %>
-                <tr class="gap Total">
-                    <th colspan="4" scope="row"><%t SilverShop\Model\Order.Total "Total" %></th>
-                    <td id="$TableTotalID"><span class="value">$Total.Nice</span> <span class="currency">$Currency</span></td>
+                <tr class="shop-cart__total">
+                    <th colspan="4" scope="row">
+                        <%t SilverShop\Model\Order.Total "Total" %>
+                    </th>
+                    <td id="$TableTotalID">
+                        <span class="shop-cart__value">$Total.Nice</span> <span class="shop-cart__currency">$Currency</span>
+                    </td>
                     <% if $Editable %><td>&nbsp;</td><% end_if %>
                 </tr>
             <% end_if %>
         </tfoot>
     </table>
 <% else %>
-    <p class="message warning">
+    <div class="alert alert-warning">
         <%t SilverShop\Cart\ShoppingCart.NoItems "There are no items in your cart." %>
-    </p>
+    </div>
 <% end_if %>

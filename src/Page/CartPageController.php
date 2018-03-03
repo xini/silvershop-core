@@ -5,6 +5,7 @@ namespace SilverShop\Page;
 use PageController;
 use SilverShop\Extension\ViewableCartExtension;
 use SilverShop\Forms\CartForm;
+use SilverStripe\View\Requirements;
 
 /**
  * Class CartPageController
@@ -19,6 +20,13 @@ class CartPageController extends PageController
         'CartForm',
         'updatecart',
     ];
+
+    public function init()
+    {
+        parent::init();
+
+        Requirements::css('silvershop/core:client/dist/css/style.css');
+    }
 
     /**
      * Display a title if there is no model, or no title.

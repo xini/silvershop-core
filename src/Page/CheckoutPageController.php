@@ -19,6 +19,7 @@ use SilverShop\Forms\PaymentForm;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\FormAction;
 use SilverStripe\Omnipay\Model\Message\GatewayErrorMessage;
+use SilverStripe\View\Requirements;
 
 /**
  * @package shop
@@ -34,13 +35,20 @@ use SilverStripe\Omnipay\Model\Message\GatewayErrorMessage;
  */
 class CheckoutPageController extends PageController
 {
-    private static $url_segment     = 'checkout';
+    private static $url_segment = 'checkout';
 
-    private static $allowed_actions = array(
+    private static $allowed_actions = [
         'OrderForm',
         'payment',
         'PaymentForm',
-    );
+    ];
+
+    public function init()
+    {
+        parent::init();
+
+        Requirements::css('silvershop/core:client/dist/css/style.css');
+    }
 
     public function Title()
     {

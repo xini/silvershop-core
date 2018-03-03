@@ -1,0 +1,265 @@
+.shop-layout {
+  display: flex;
+
+  > div {
+    flex: 1;
+  }
+
+  .shop-sidebar {
+    width: 320px;
+    background: #f9f9f9;
+    border-radius: 4px;
+    padding: 20px;
+    flex: 0 0 320px;
+    margin-left: 30px;
+
+    li {
+      list-style: none;
+    }
+  }
+}
+
+@media screen and (max-width: 920px) {
+  .shop-layout {
+    .shop-sidebar {
+      width: 100%;
+    }
+  }
+}
+
+.shop-sidecart {
+  &--item {
+    clear: both;
+    position: relative;
+    padding-right: 16px;
+  }
+
+  &--image {
+    float: left;
+    margin-right: 1em;
+  }
+
+  &--remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  p {
+    margin-bottom: 0.1em;
+  }
+
+  &--quantity {
+    font-weight: bold;
+  }
+}
+
+/**
+* == / Product category
+*/
+
+/* create a box floated to the right */
+.accountcontent {
+   float: left;
+   width: 70%;
+}
+
+.accountnav {
+   float: right;
+   width: 25%;
+}
+
+table.orderhistory {
+   width: 100%;
+}
+
+/*
+* Member form styling, and tweaks to the login form as well
+*/
+#ShopAccountForm_EditAccountForm,
+#ChangePasswordForm_ChangePasswordForm {
+   width: 45%;
+   float: left;
+}
+
+#ChangePasswordForm_ChangePasswordForm {
+   margin-left: 5%;
+}
+
+
+/* address book panels ************************************************************/
+.AccountPage h2 {
+   clear: left;
+}
+
+.address-panel {
+   position: relative;
+   float: left;
+   width: 48%;
+   background: #eee;
+   border: 1px solid #ccc;
+   border-radius:2px;
+   padding: 20px;
+   margin-bottom: 5px;
+}
+.address-panel.odd {
+   margin-right:2%;
+}
+
+.address-panel .panel-body {
+   font-size:14px;
+   line-height:17px;
+}
+.address-panel .panel-footer {
+   border-top: 1px solid #d9d9d9;
+   padding: 8px 20px;
+   bottom: 0px;
+   margin: 15px -20px -20px;
+}
+
+/*@include clearfix;*/
+.cf:before,
+.cf:after {
+   content: " "; /* 1 */
+   display: table; /* 2 */
+}
+.cf:after {
+   clear: both;
+}
+
+.address-panel .panel-footer .btn {
+   line-height: 32px;
+   padding: 0 9px;
+   font-size: 10px;
+   margin: 0 9px 0 0;
+}
+
+.address-panel .remove-address {
+   float: right;
+   line-height: 32px;
+   border:none;
+}
+
+.address-panel .remove-address img {
+   background: none;
+   border: none;
+}
+
+.address-panel .tag {
+   position: relative;
+   top: -21px;
+   background: #f7931e;
+   color: white;
+   font-size: 10px;
+   padding: 4px 10px;
+   border-radius: 0 0 2px 2px;
+   float: right;
+   right: -10px;
+   margin-left: 10px;
+}
+
+/** Minimal Checkout Page Styling **/
+
+#OrderForm_OrderForm {
+   clear: left;
+}
+
+/* CheckoutPage form styling */
+#LeftOrder, #RightOrder {
+   float: left;
+
+}
+
+#LeftOrder {
+   width: 50%;
+}
+
+#RightOrder {
+   width: 50%;
+}
+
+#LeftOrder .CompositeField {
+   margin-right: 10px;
+}
+
+#BottomOrder {
+   clear: both;
+}
+
+#Checkout form label.left {
+   float: left;
+   width: 30%;
+   font-weight: bold;
+}
+
+#Checkout form input.nolabel {
+   margin-left: 30%;
+}
+
+#Checkout form input.text {
+   width: 50%;
+}
+
+#Checkout form #PaymentMethod li {
+   list-style: none;
+}
+
+#Checkout form #Amount {
+   font-size: 1.5em;
+}
+
+#Checkout #Notes .middleColumn textarea {
+   clear: left;
+   width: 100%;
+   resize: vertical;
+}
+
+table.ordercontent {
+   width: 100%;
+}
+
+table.shop-cart {
+  width: 100%;
+
+  td {
+    text-align: center;
+  }
+
+  td h3,
+  td .subtitle {
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+  }
+
+  colgroup.image,
+  colgroup.remove {
+    width: 10px;
+  }
+
+  colgroup.unitprice,
+  colgroup.total {
+    width: 10em;
+  }
+
+  colgroup.quantity {
+    width: 10em;
+  }
+
+  tfoot th {
+    text-align: left;
+  }
+}
+
+/* Image placeholder */
+.shop-product__noimage {
+    padding: 60px 20px;
+    height: 40px;
+    width: 200px;
+    text-align: center;
+    background: #eeeeee;
+    color: #d3d3d3;
+    display: block;
+    text-decoration: none;
+    font-size: 20px;
+}

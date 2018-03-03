@@ -1,11 +1,10 @@
-<% require css("silvershop/core: client/dist/css/account.css") %>
-
 <% include SilverShop\Includes\AccountNavigation %>
-<div id="Account" class="typography">
-    <h2 class="pagetitle">
+
+<div id="shop-account">
+    <h1>
         <%t SilverShop\Page\AccountPage_AddressBook.Title 'Default Addresses' %>
-    </h2>
-    <%-- If you want the old dropdown system back you can just use $DefaultAddressForm here instead --%>
+    </h1>
+
     <% if $CurrentMember.AddressBook %>
         <% loop $CurrentMember.AddressBook %>
             <div class="panel radius address-panel $EvenOdd">
@@ -44,10 +43,11 @@
             </div>
         <% end_loop %>
     <% else %>
-        <p class="alert">
-            <%t SilverShop\Page\AccountPage_AddressBook.NoAddress 'No addresses found.' %>
-        </p>
+        <div class="alert alert-info">
+            <p><%t SilverShop\Page\AccountPage_AddressBook.NoAddress 'No addresses found.' %></p>
+        </div>
     <% end_if %>
+
     <h2>
         <%t SilverShop\Page\AccountPage_AddressBook.CreateNewTitle 'Create New Address' %>
     </h2>

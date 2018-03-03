@@ -1,4 +1,4 @@
-<table id="ShippingTable" class="infotable">
+<table id="shop-shippingtable" class="shop-infotable">
     <thead>
         <tr>
             <th><%t SilverShop\Model\Order.ShipTo "Ship To" %></th>

@@ -1,4 +1,4 @@
-<div id="Sidebar">
+<div class="shop-sidebar">
     <% if $GroupsMenu %>
         <% include SilverShop\Includes\ProductMenu %>
     <% else %>
@@ -6,7 +6,8 @@
             <% include SilverShop\Includes\ProductMenu %>
         <% end_with %>
     <% end_if %>
-    <div class="cart">
-      <% include SilverShop\Cart\SideCart %>
-  </div>
+
+    <div class="shop-sidebar__cart">
+        <% include SilverShop\Cart\SideCart %>
+    </div>
 </div>

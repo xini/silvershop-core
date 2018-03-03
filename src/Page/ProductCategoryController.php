@@ -5,9 +5,17 @@ namespace SilverShop\Page;
 use PageController;
 use SilverShop\ListSorter\ListSorter;
 use SilverStripe\ORM\PaginatedList;
+use SilverStripe\View\Requirements;
 
 class ProductCategoryController extends PageController
 {
+    public function init()
+    {
+        parent::init();
+
+        Requirements::css('silvershop/core:client/dist/css/style.css');
+    }
+
     /**
      * Return the products for this group.
      */

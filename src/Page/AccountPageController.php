@@ -17,6 +17,7 @@ use SilverStripe\Security\Member;
 use SilverStripe\Security\MemberAuthenticator\ChangePasswordForm;
 use SilverStripe\Security\Security;
 use SilverStripe\SiteConfig\SiteConfig;
+use SilverStripe\View\Requirements;
 
 class AccountPageController extends PageController
 {
@@ -43,7 +44,11 @@ class AccountPageController extends PageController
     public function init()
     {
         parent::init();
+
+        Requirements::css('silvershop/core:client/dist/css/style.css');
+
         $this->member = Security::getCurrentUser();
+
         if (!$this->member) {
             $messages = array(
                 'default' => _t(

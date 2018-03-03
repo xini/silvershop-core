@@ -9,12 +9,10 @@ use SilverStripe\ORM\DB;
 /**
  * Account page shows order history and a form to allow
  * the member to edit his/her details.
- *
- * @package shop
  */
 class AccountPage extends Page
 {
-    private static $icon = 'silvershop/core: client/dist/images/icons/account.gif';
+    private static $icon = 'silvershop/core:client/dist/images/icons/account.gif';
 
     private static $table_name = 'SilverShop_AccountPage';
 
