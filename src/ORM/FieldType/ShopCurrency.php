@@ -43,6 +43,10 @@ class ShopCurrency extends DBCurrency
      */
     private static $negative_value_format = '<span class="negative">(%s)</span>';
 
+    private static $casting = [
+        'Nice' => 'HTMLText'
+    ];
+
     public function Nice()
     {
         $symbol = $this->config()->currency_symbol;

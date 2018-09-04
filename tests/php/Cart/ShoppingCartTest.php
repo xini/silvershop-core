@@ -126,6 +126,8 @@ class ShoppingCartTest extends SapphireTest
 
     public function testCartSingleton()
     {
+        $this->loadFixture(__DIR__ . '/../Fixtures/shop.yml');
+
         $this->assertTrue((boolean)$this->cart->add($this->product), "add one item");
         $order = $this->cart->current();
 
